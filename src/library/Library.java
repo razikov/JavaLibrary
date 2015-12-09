@@ -6,6 +6,7 @@
 package library;
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ import org.hibernate.service.ServiceRegistry;
  *
  * @author razikov
  */
-public class JavaFXApplication1 extends Application {
+public class Library extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -41,7 +42,7 @@ public class JavaFXApplication1 extends Application {
         SessionFactory sessionFactory;
         
         Configuration configuration = new Configuration();
-        configuration.configure("javafxapplication1/hibernate.cfg.xml");
+        configuration.configure("library/hibernate.cfg.xml");
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
@@ -57,7 +58,7 @@ public class JavaFXApplication1 extends Application {
         book.setGenre("genre");
         book.setAge(20);
         book.setQuantity(5);
-        //session.save(book);
+        session.save(book);
         session.getTransaction().commit();
         session.close();
         sessionFactory.close();

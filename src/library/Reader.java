@@ -30,27 +30,27 @@ public class Reader {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getFName() {
+    public String getfName() {
         return this.fName;
     }
     
-    public void setFName(String fName) {
+    public void setfName(String fName) {
         this.fName = fName;
     }
     
-    public String getLName() {
+    public String getlName() {
         return this.lName;
     }
     
-    public void setLName(String lName) {
+    public void setlName(String lName) {
         this.lName = lName;
     }
     
-    public String getSName() {
+    public String getsName() {
         return this.sName;
     }
     
-    public void setSName(String sName) {
+    public void setsName(String sName) {
         this.sName = sName;
     }
     

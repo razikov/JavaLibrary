@@ -23,6 +23,7 @@ g) вывод списка книг, упорядоченного по назв�
 package library;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -99,15 +100,15 @@ public class Library extends Application {
         session2.beginTransaction();
         Reader reader = new Reader();
         reader.setId(1);
-        reader.setFName("author");
-        reader.setLName("title");
-        reader.setSName("1abs3");
+        reader.setfName("author");
+        reader.setlName("title");
+        reader.setsName("1abs3");
         reader.setAge(20);
         Using u1 = new Using(1, 1, new Date());
         Using u2 = new Using(2, 1, new Date());
-        Set<Using> list = null;
-        list.add(u1);
-        list.add(u2);
+        Set<Using> list = new HashSet<Using>();
+        //list.add(u1);
+        //list.add(u2);
         reader.setList(list);
         session2.save(reader);
         session2.getTransaction().commit();

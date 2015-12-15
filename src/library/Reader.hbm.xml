@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="library">
+  <class name="Reader" table="reader">
+    <id column="id" name="id">
+      <generator class="increment"/>
+    </id>
+    <property column="fname" name="fname"/>
+    <property column="lname" name="lname"/>
+    <property column="sname" name="sname"/>
+    <property column="age" name="age"/>
+    <set name="list" table="using" inverse="false" lazy="true">
+        <key column="id">
+        </key>
+        <one-to-many class="Using"></one-to-many>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -41,5 +41,7 @@
     <!-- Drop and re-create the database schema on startup -->
     <property name="hbm2ddl.auto">create</property>
     <mapping class="" file="" jar="" package="" resource="library/Book.hbm.xml"/>
+    <mapping resource="library/Reader.hbm.xml"/>
+    <mapping resource="library/Using.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

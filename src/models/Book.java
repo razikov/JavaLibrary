@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package library;
+package models;
 
 
 /**
@@ -19,7 +19,7 @@ public class Book {
     private Integer age;
     private Integer quantity;
     
-    Book() {
+    public Book() {
     }
     
     public Integer getId() {

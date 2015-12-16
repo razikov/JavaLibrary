@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package library;
+package models;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -13,14 +13,14 @@ import java.util.Date;
  */
 public class Using {
     private Integer id;
-    private Integer idBook;
-    private Integer idReader;
+    private Book idBook;
+    private Reader idReader;
     private Date dateReturn;
     
-    Using(Integer idBook, Integer idReader, Date date) {
+    public Using(Book idBook, Reader idReader, Date ms) {
         this.idBook = idBook;
         this.idReader = idReader;
-        this.dateReturn = date;
+        this.dateReturn = ms;
     }
     
     public Integer getId() {
@@ -29,16 +29,16 @@ public class Using {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getIdBook() {
+    public Book getIdBook() {
         return this.idBook;
     }
-    public void setIdBook(Integer id) {
+    public void setIdBook(Book id) {
         this.idBook = id;
     }
-    public Integer getIdReader() {
+    public Reader getIdReader() {
         return this.idReader;
     }
-    public void setIdReader(Integer id) {
+    public void setIdReader(Reader id) {
         this.idReader = id;
     }
     public Date getDateReturn() {

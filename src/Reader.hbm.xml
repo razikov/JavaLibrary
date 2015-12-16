@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="library">
-  <class name="Book" table="book">
+  <class name="models.Reader" table="reader">
     <id column="id" name="id">
       <generator class="increment"/>
     </id>
-    <property column="author" name="author"/>
-    <property column="title" name="title"/>
-    <property column="isbn" name="isbn"/>
-    <property column="genre" name="genre"/>
+    <property column="fName" name="fName"/>
+    <property column="lName" name="lName"/>
+    <property column="sName" name="sName"/>
     <property column="age" name="age"/>
-    <property column="quantity" name="quantity"/>
+    <set inverse="false" lazy="true" name="list" table="using">
+      <key column="idReader">
+        </key>
+      <one-to-many class="models.Using"/>
+    </set>
   </class>
 </hibernate-mapping>

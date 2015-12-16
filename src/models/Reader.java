@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package library;
+package models;
 
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public class Reader {
     private Integer age;
     private Set<Using> list;
     
-    Reader() {
+    public Reader() {
     }
 
     public Integer getId() {

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="library">
-  <class name="Using" table="using">
-    <id column="id" name="id">
+  <class name="models.Using" table="usingt">
+    <id name="id">
       <generator class="increment"/>
     </id>
-    <many-to-one name="idBook" class="Book">
-        <column name="idBook" />
+    <many-to-one class="models.Book" name="idBook">
     </many-to-one>
-    <many-to-one name="idReader" class="Reader">
-        <column name="idReader" />
+    <many-to-one class="models.Reader" name="idReader">
     </many-to-one>
     <property name="dateReturn" type="java.sql.Date">
-        <column name="dateReturn" />
     </property>
   </class>
 </hibernate-mapping>

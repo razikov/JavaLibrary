@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="1216.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="247.0" prefWidth="1110.0">
+      <HBox prefHeight="213.0" prefWidth="1186.0">
          <children>
             <VBox prefHeight="247.0" prefWidth="547.0">
                <children>
@@ -77,12 +77,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="165.0" text="    ФИО читателя" />
-                        <Label prefHeight="17.0" prefWidth="115.0" text="    Возраст" GridPane.rowIndex="1" />
-                        <Label prefHeight="17.0" prefWidth="87.0" text="    Список книг" GridPane.rowIndex="2" />
+                        <Label prefHeight="17.0" prefWidth="165.0" text="    Имя" />
                         <TextField GridPane.columnIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="    Фамилия" GridPane.rowIndex="1" />
+                        <Label text="    Отчество" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane>
@@ -97,23 +97,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="158.0" text="    Дата возврата" />
                         <TextField GridPane.columnIndex="1" />
-                        <Button minWidth="155.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Подобрать книгу" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <tooltip>
-                              <Tooltip text="Поиск обмена для выбранной квартиры" />
-                           </tooltip>
-                        </Button>
-                        <Button minWidth="155.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Выдать книгу" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <tooltip>
-                              <Tooltip text="Поиск обмена для выбранной квартиры" />
-                           </tooltip>
-                        </Button>
-                        <Button minWidth="155.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="155.0" text="Вернуть книгу" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <tooltip>
-                              <Tooltip text="Поиск обмена для выбранной квартиры" />
-                           </tooltip>
-                        </Button>
+                        <Label prefHeight="17.0" prefWidth="87.0" text="    Список книг" GridPane.rowIndex="1" />
+                        <Label prefHeight="17.0" prefWidth="115.0" text="    Возраст" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
@@ -122,11 +109,11 @@
       </HBox>
       <HBox prefHeight="73.0" prefWidth="1070.0">
          <children>
-            <HBox fx:id="mainHeader" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="523.0" style="-fx-background-color: #dae0e6;">
+            <HBox fx:id="mainHeader" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="556.0" style="-fx-background-color: #dae0e6;">
                <children>
                   <Button fx:id="addFromFileButton" minWidth="111.0" mnemonicParsing="false" onAction="#addFromFile" prefHeight="26.0" prefWidth="122.0" text="Добавить из файла">
                      <tooltip>
-                        <Tooltip text="Добавить новые квартиры из файла" />
+                        <Tooltip text="Добавить из файла" />
                      </tooltip>
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
@@ -134,7 +121,7 @@
                   </Button>
                   <Button fx:id="addBookButton" minWidth="100.0" mnemonicParsing="false" onAction="#addBook" prefHeight="25.0" prefWidth="117.0" text="Добавить Книгу">
                      <tooltip>
-                        <Tooltip text="Добавить новую квартиру" />
+                        <Tooltip text="Добавить новую книгу" />
                      </tooltip>
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
@@ -142,7 +129,7 @@
                   </Button>
                   <Button fx:id="deleteBookButton" minWidth="100.0" mnemonicParsing="false" onAction="#deleteBook" text="Удалить Книгу">
                      <tooltip>
-                        <Tooltip text="Удалить выбранную квартиру" />
+                        <Tooltip text="Удалить выбранную книгу" />
                      </tooltip>
                      <HBox.margin>
                         <Insets left="2.0" right="2.0" />
@@ -150,21 +137,26 @@
                   </Button>
                </children>
             </HBox>
-            <HBox fx:id="mainHeader1" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="547.0" style="-fx-background-color: #dae0e6;">
+            <HBox fx:id="mainHeader1" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="668.0" style="-fx-background-color: #dae0e6;">
                <children>
-                  <Button fx:id="addReaderButton1" minWidth="155.0" mnemonicParsing="false" onAction="#addReader" prefHeight="26.0" prefWidth="155.0" text="Добавить Читателя">
-                     <tooltip>
-                        <Tooltip text="Поиск обмена для выбранной квартиры" />
-                     </tooltip>
-                     <HBox.margin>
-                        <Insets left="2.0" right="2.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="deleteReaderButton1" minWidth="155.0" mnemonicParsing="false" onAction="#deleteReader" prefHeight="26.0" prefWidth="155.0" text="Удалить Читателя">
-                     <tooltip>
-                        <Tooltip text="Поиск обмена для выбранной квартиры" />
-                     </tooltip>
-                  </Button>
+                  <GridPane prefHeight="58.0" prefWidth="482.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="255.0" text="Добавить Читателя" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="259.0" text="Удалить Читателя" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="272.0" text="Подбор Книги" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="279.0" text="Выдача Книги" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="275.0" text="Возврат Книги" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
                </children>
             </HBox>
          </children></HBox>
@@ -177,31 +169,32 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn fx:id="idColumn" minWidth="22.0" prefWidth="22.0" text="№" />
-                        <TableColumn fx:id="addressColumn" minWidth="20.0" prefWidth="20.0" text="Номер" />
-                        <TableColumn fx:id="costColumn" minWidth="63.0" prefWidth="159.0" text="Название" />
-                        <TableColumn fx:id="houseTypeColumn" minWidth="66.0" prefWidth="68.0" text="Автор" />
-                        <TableColumn fx:id="footageColumn" minWidth="39.0" prefWidth="39.0" text="Жанр" />
-                        <TableColumn fx:id="roomsCountColumn" minWidth="28.0" prefWidth="104.0" text="Возраст" />
-                        <TableColumn fx:id="floorColumn" minWidth="50.0" prefWidth="107.0" text="Количество" />
+                        <TableColumn fx:id="idBook" minWidth="22.0" prefWidth="22.0" text="№" />
+                        <TableColumn fx:id="id" minWidth="20.0" prefWidth="20.0" text="Номер" />
+                        <TableColumn fx:id="author" minWidth="66.0" prefWidth="68.0" text="Автор" />
+                        <TableColumn fx:id="title" minWidth="63.0" prefWidth="159.0" text="Название" />
+                        <TableColumn fx:id="genre" minWidth="39.0" prefWidth="39.0" text="Жанр" />
+                        <TableColumn fx:id="age" minWidth="28.0" prefWidth="104.0" text="Возраст" />
+                        <TableColumn fx:id="quantity" minWidth="50.0" prefWidth="107.0" text="Количество" />
                         <TableColumn fx:id="exchangeColumn" minWidth="90.0" prefWidth="90.0" text="Ограничения" visible="false" />
                      </columns>
                   </TableView>
                </children>
             </VBox>
-            <VBox prefHeight="278.0" prefWidth="571.0">
+            <VBox prefHeight="278.0" prefWidth="674.0">
                <children>
-                  <TableView fx:id="table1" minWidth="502.0" prefHeight="278.0" prefWidth="502.0" tableMenuButtonVisible="true">
+                  <TableView fx:id="table1" minWidth="502.0" prefHeight="278.0" prefWidth="647.0" tableMenuButtonVisible="true">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn fx:id="idColumn1" minWidth="22.0" prefWidth="22.0" text="№" />
-                        <TableColumn fx:id="addressColumn1" minWidth="20.0" prefWidth="20.0" text="ФИО" />
-                        <TableColumn fx:id="costColumn1" minWidth="63.0" prefWidth="82.0" text="Возраст" />
-                        <TableColumn fx:id="houseTypeColumn1" minWidth="66.0" prefWidth="171.0" text="Список книг" />
-                        <TableColumn fx:id="footageColumn1" minWidth="39.0" prefWidth="39.0" text="Дата возврата" />
-                        <TableColumn fx:id="exchangeColumn1" minWidth="90.0" prefWidth="90.0" text="Ограничения" visible="false" />
+                        <TableColumn fx:id="idReader" minWidth="22.0" prefWidth="22.0" text="№" />
+                        <TableColumn fx:id="fName" minWidth="20.0" prefWidth="20.0" text="Имя" />
+                        <TableColumn fx:id="lName" minWidth="52.0" prefWidth="52.0" text="Фамилия" />
+                        <TableColumn fx:id="sName" minWidth="66.0" text="Отчество" />
+                        <TableColumn fx:id="age" minWidth="39.0" prefWidth="142.0" text="Возраст" />                      
+                        <TableColumn fx:id="list" minWidth="20.0" prefWidth="20.0" text="Список книг" />
+						<TableColumn fx:id="exchangeColumn1" minWidth="90.0" prefWidth="90.0" text="Ограничения" visible="false" />
                      </columns>
                   </TableView>
                </children>

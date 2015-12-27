@@ -5,7 +5,7 @@
     <id name="id">
       <generator class="increment"/>
     </id>
-    <many-to-one class="models.Book" name="idBook">
+    <many-to-one class="models.Book" lazy="false" name="idBook">
     </many-to-one>
     <many-to-one class="models.Reader" name="idReader">
     </many-to-one>

@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,11 +15,11 @@ import java.util.Set;
 public class Reader {
     //фамилию, имя, отчество, возраст, список книг с указанием даты возврата. 
     private Integer id;
-    private String fName; //Имя
-    private String lName; //Фамилия
-    private String sName; //Отчество
+    private String name; //Имя
+    private String familyName; //Фамилия
+    private String fatherName; //Отчество
     private Integer age;
-    private Set<Using> list;
+    private Set<Using> list = new HashSet<Using>();
     
     public Reader() {
     }
@@ -30,28 +31,28 @@ public class Reader {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getfName() {
-        return this.fName;
+    public String getName() {
+        return this.name;
     }
     
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setName(String n) {
+        this.name = n;
     }
     
-    public String getlName() {
-        return this.lName;
+    public String getFamilyName() {
+        return this.familyName;
     }
     
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
     
-    public String getsName() {
-        return this.sName;
+    public String getFatherName() {
+        return this.fatherName;
     }
     
-    public void setsName(String sName) {
-        this.sName = sName;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
     
     public Integer getAge() {

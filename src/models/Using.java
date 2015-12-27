@@ -17,6 +17,9 @@ public class Using {
     private Reader idReader;
     private Date dateReturn;
     
+    public Using() {
+    }
+    
     public Using(Book idBook, Reader idReader, Date ms) {
         this.idBook = idBook;
         this.idReader = idReader;

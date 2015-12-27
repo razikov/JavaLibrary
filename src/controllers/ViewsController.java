@@ -9,28 +9,25 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import models.Book;
 import models.Reader;
+import models.Using;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
@@ -46,11 +43,10 @@ public class ViewsController implements Initializable {
     
     private ObservableList<Book> bookData = FXCollections.observableArrayList(this.getBooksList());
     private ObservableList<Reader> readerData = FXCollections.observableArrayList(this.getReadersList());
-    private Book book = new Book();
-    private Reader reader = new Reader();
     
     @FXML
-    private TextField authorTextField, titleTextField, genreTextField, ageTextField, QuantityTextField;
+    private TextField authorTextField, titleTextField, genreTextField, ageTextField, QuantityTextField, 
+            nameTextField, familyNameTextField, fatherNameTextField, ageTextField2;
     @FXML
     private Button addBookButton, deleteBookButton;
     //Таблица книг
@@ -73,17 +69,17 @@ public class ViewsController implements Initializable {
     @FXML
     private TableView<Reader> tableReaders;
     @FXML
-    private TableColumn<Reader, Integer> idReader;
+    private TableColumn<Reader, Integer> idReaderCol;
     @FXML
-    private TableColumn<Reader, String> fname;
+    private TableColumn<Reader, String> fatherNameCol;
     @FXML
-    private TableColumn<Reader, String> lname;
+    private TableColumn<Reader, String> familyNameCol;
     @FXML
-    private TableColumn<Reader, String> oname;
+    private TableColumn<Reader, String> nameCol;
     @FXML
-    private TableColumn<Reader, Integer> ageR;
+    private TableColumn<Reader, Integer> ageRCol;
     @FXML
-    private TableColumn<Reader, Integer> list;
+    private TableColumn<Reader, Set<Using>> listCol;
     
     /**
      * Обработчик события сохранения новой книги,
@@ -94,6 +90,7 @@ public class ViewsController implements Initializable {
     void addBook(ActionEvent event) {
         try{
             System.out.println("addBook");
+            Book book = new Book();
             book.setAuthor(authorTextField.getText());
             book.setTitle(titleTextField.getText());
             book.setGenre(genreTextField.getText());
@@ -104,7 +101,7 @@ public class ViewsController implements Initializable {
                 showError(ERROR_FIELD_FORMAT);
             }
             //Сохраняет книгу в БД
-            saveBookToDB();
+            saveObjectToDB(book);
             //Добавляет книгу в таблицу
             bookData.add(book);
         }
@@ -121,7 +118,7 @@ public class ViewsController implements Initializable {
             //Получает выделенную книгу
             Book b = bookData.get(selectedIndex);
             //Удаляет книгу из БД
-            deleteBookFromDB(b);
+            deleteObjectFromDB(b);
             //Удаляет книгу из таблицы
             bookData.remove(b);
         } else {
@@ -132,12 +129,39 @@ public class ViewsController implements Initializable {
     //READER
     @FXML
     private void addReader(ActionEvent event) {
-        System.out.println("addReader");
+        try{
+            System.out.println("addReader");
+            Reader reader = new Reader();
+            reader.setName(nameTextField.getText());
+            reader.setFamilyName(familyNameTextField.getText());
+            reader.setFatherName(fatherNameTextField.getText());
+            reader.setAge(Integer.parseInt(ageTextField2.getText()));
+            
+            //Сохраняет .. в БД
+            saveObjectToDB(reader);
+            //Добавляет .. в таблицу
+            readerData.add(reader);
+        }
+        catch (NumberFormatException ex){
+            showError(ERROR_FIELD_FORMAT);
+        }
     }
     
     @FXML
     private void deleteReader(ActionEvent event) {
         System.out.println("deleteReader");
+        int selectedIndex = tableReaders.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            //Получает 
+            Reader r = readerData.get(selectedIndex);
+            //Удаляет книгу из БД
+            //!!esli net knig na rukah
+            deleteObjectFromDB(r);
+            //Удаляет книгу из таблицы
+            readerData.remove(r);
+        } else {
+            showError(ERROR_NON_SELECTED);
+        }
     }
     
     /**
@@ -169,12 +193,12 @@ public class ViewsController implements Initializable {
     /**
      * Сохраняет созданную книгу в БД
      */
-    private void saveBookToDB(){
+    private void saveObjectToDB(Object o){
         new Thread(() ->{
             try{
                 Session session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
-                session.save(book);
+                session.save(o);
                 session.getTransaction().commit();
                 session.close();
             }
@@ -188,10 +212,10 @@ public class ViewsController implements Initializable {
      * Удаляет книгу из базы данных
      * @param book книга для удаления
      */
-    private void deleteBookFromDB(Book book){
+    private void deleteObjectFromDB(Object o){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.delete(book);
+        session.delete(o);
         session.getTransaction().commit();
         session.close();
     }
@@ -226,14 +250,39 @@ public class ViewsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // устанавливаем тип и значение которое должно хранится в колонке
-        idBook.setCellValueFactory(new PropertyValueFactory<Book, Integer>("id"));
-        author.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
-        title.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
-        genre.setCellValueFactory(new PropertyValueFactory<Book, String>("genre"));
-        age.setCellValueFactory(new PropertyValueFactory<Book, Integer>("age"));
-        quantity.setCellValueFactory(new PropertyValueFactory<Book, Integer>("quantity"));
+        //Book
+        idBook.setCellValueFactory(new PropertyValueFactory<>("id"));
+        author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        age.setCellValueFactory(new PropertyValueFactory<>("age"));
+        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         // заполняем таблицу данными
         tableBooks.setItems(bookData);
+        
+        //Reader
+        idReaderCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        familyNameCol.setCellValueFactory(new PropertyValueFactory<>("familyName"));
+        fatherNameCol.setCellValueFactory(new PropertyValueFactory<>("fatherName"));
+        ageRCol.setCellValueFactory(new PropertyValueFactory<>("age"));
+        //TODO: lazy load
+        listCol.setCellValueFactory((CellDataFeatures<Reader, Set<Using>> x) -> {
+            Reader row = x.getValue();
+            Set<Using> set = row.getList();
+            if (set != null) {
+                String t = "";
+                for(Using u : set) {
+                    String b = u.getIdBook().getId() + ", " + u.getIdBook().getAuthor() + ", " + u.getIdBook().getTitle();
+                    String d = u.getDateReturn().toString();
+                    t += b + "; " + d + "\n";
+                }
+                return new ReadOnlyObjectWrapper(t);
+            } else {
+                return new ReadOnlyObjectWrapper("");
+            }
+        });
+        // заполняем таблицу данными
+        tableReaders.setItems(readerData);
     }
 }

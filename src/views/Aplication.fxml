@@ -20,25 +20,25 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TabPane prefHeight="531.0" prefWidth="625.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Книги">
                <content>
                   <VBox prefHeight="401.0" prefWidth="625.0">
                      <children>
-                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity">
+                        <GridPane>
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="314.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="311.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Label disable="true" prefHeight="17.0" prefWidth="149.0" text="Номер" />
@@ -52,17 +52,17 @@
                               <TextField fx:id="authorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <TextField fx:id="genreTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TextField fx:id="ageTextField" prefHeight="25.0" prefWidth="153.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="QuantityTextField" prefHeight="38.0" prefWidth="315.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="QuantityTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <Button fx:id="addBookButton" minWidth="100.0" mnemonicParsing="false" onAction="#addBook" text="Добавить Книгу" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
-                        <TableView fx:id="tableBooks" minWidth="546.0" prefHeight="258.0" prefWidth="625.0">
+                        <TableView fx:id="tableBooks">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                            <columns>
                               <TableColumn fx:id="idBook" minWidth="22.0" prefWidth="22.0" text="№" />
-                              <TableColumn fx:id="id" minWidth="20.0" prefWidth="20.0" text="Номер" visible="false" />
+                              <TableColumn fx:id="isbn" minWidth="20.0" prefWidth="20.0" text="Номер" visible="false" />
                               <TableColumn fx:id="author" minWidth="66.0" prefWidth="68.0" text="Автор" />
                               <TableColumn fx:id="title" minWidth="63.0" prefWidth="159.0" text="Название" />
                               <TableColumn fx:id="genre" minWidth="39.0" prefWidth="39.0" text="Жанр" />
@@ -82,83 +82,79 @@
                </content>
           </Tab>
           <Tab text="Читатели">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                  <VBox prefHeight="498.0" prefWidth="625.0">
                      <children>
-                        <VBox prefHeight="498.0" prefWidth="625.0">
+                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity">
                            <children>
-                              <GridPane maxHeight="-Infinity" maxWidth="-Infinity">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="149.0" text="Фамилию" />
-                                    <Label prefHeight="17.0" prefWidth="122.0" text="Имя" GridPane.rowIndex="1" />
-                                    <Label text="Отчество" GridPane.rowIndex="2" />
-                                    <Label text="Возраст" GridPane.rowIndex="3" />
-                                    <TextField GridPane.columnIndex="1" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button fx:id="addReaderButton" disable="true" minWidth="100.0" mnemonicParsing="false" onAction="#addReader" text="Добавить Читателя" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                 </children>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="314.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="311.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                              </GridPane>
-                              <TableView fx:id="tableReader" minWidth="546.0" prefHeight="315.0" prefWidth="625.0">
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                                 <columns>
-                                    <TableColumn fx:id="idReader" minWidth="22.0" prefWidth="22.0" text="№" />
-                                    <TableColumn fx:id="fname" minWidth="20.0" prefWidth="20.0" text="Фамилия" />
-                                    <TableColumn fx:id="lname" minWidth="66.0" prefWidth="68.0" text="Имя" />
-                                    <TableColumn fx:id="oname" minWidth="63.0" prefWidth="87.0" text="Отчество" />
-                                    <TableColumn fx:id="ageR" minWidth="39.0" prefWidth="143.0" text="Возраст" />
-                                    <TableColumn fx:id="list" minWidth="28.0" prefWidth="128.0" text="Список книг" />
-                                 </columns>
-                              </TableView>
-                              <HBox>
-                                 <children>
-                                    <Button fx:id="deleteBookButton1" alignment="CENTER_RIGHT" disable="true" minWidth="100.0" mnemonicParsing="false" onAction="#deleteReader" text="Удалить читателя" />
-                                 </children>
-                              </HBox>
+                              <Label prefHeight="17.0" prefWidth="149.0" text="Фамилию" />
+                              <Label prefHeight="17.0" prefWidth="122.0" text="Имя" GridPane.rowIndex="1" />
+                              <Label text="Отчество" GridPane.rowIndex="2" />
+                              <Label text="Возраст" GridPane.rowIndex="3" />
+                              <TextField fx:id="familyNameTextField" GridPane.columnIndex="1" />
+                              <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="fatherNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="ageTextField2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Button fx:id="addReaderButton" mnemonicParsing="false" onAction="#addReader" text="Добавить Читателя" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
-                        </VBox>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="314.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="311.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                        <TableView fx:id="tableReaders" prefHeight="348.0" prefWidth="623.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="idReaderCol" maxWidth="1000.0" text="№" />
+                              <TableColumn fx:id="familyNameCol" maxWidth="2000.0" text="Фамилия" />
+                              <TableColumn fx:id="nameCol" maxWidth="2000.0" text="Имя" />
+                              <TableColumn fx:id="fatherNameCol" maxWidth="2000.0" text="Отчество" />
+                              <TableColumn fx:id="ageRCol" maxWidth="1000.0" text="Возраст" />
+                              <TableColumn fx:id="listCol" text="Список книг" />
+                           </columns>
+                        </TableView>
+                        <HBox>
+                           <children>
+                              <Button fx:id="deleteReaderButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#deleteReader" text="Удалить читателя" />
+                           </children>
+                        </HBox>
                      </children>
-                  </AnchorPane>
-            </content>
+                  </VBox>
+               </content>
           </Tab>
             <Tab text="Подбор книги">
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <GridPane prefHeight="125.0" prefWidth="625.0">
+                        <GridPane>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" />
                               <ColumnConstraints hgrow="SOMETIMES" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox layoutX="179.0" layoutY="52.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ChoiceBox layoutX="179.0" layoutY="52.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label layoutX="50.0" layoutY="15.0" text="Выберите читателя" />
                               <Label layoutX="50.0" layoutY="56.0" text="Выберите жанр" GridPane.rowIndex="1" />
-                              <ChoiceBox layoutX="179.0" layoutY="11.0" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ChoiceBox layoutX="179.0" layoutY="11.0" GridPane.columnIndex="1" />
                               <Label text="Укажите автора" GridPane.rowIndex="2" />
                               <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Искать по:" GridPane.rowIndex="3" />
-                              <ChoiceBox prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ChoiceBox GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                         <HBox>
@@ -167,7 +163,7 @@
                               <Button mnemonicParsing="false" text="Сбросить" />
                            </children>
                         </HBox>
-                        <TableView fx:id="tableBooks1" minWidth="546.0" prefHeight="296.0" prefWidth="625.0">
+                        <TableView fx:id="tableBooks1">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>

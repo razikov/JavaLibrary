@@ -48,11 +48,11 @@
                               <Label prefHeight="17.0" prefWidth="133.0" text="Возраст читателя" GridPane.rowIndex="4" />
                               <Label prefHeight="17.0" prefWidth="187.0" text="Количество книг в библиотеке" GridPane.rowIndex="5" />
                               <TextField disable="true" GridPane.columnIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField prefHeight="25.0" prefWidth="153.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField prefHeight="38.0" prefWidth="315.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="authorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="genreTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="ageTextField" prefHeight="25.0" prefWidth="153.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="QuantityTextField" prefHeight="38.0" prefWidth="315.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <Button fx:id="addBookButton" minWidth="100.0" mnemonicParsing="false" onAction="#addBook" text="Добавить Книгу" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
@@ -73,8 +73,8 @@
                         <HBox>
                            <children>
                               <Button fx:id="deleteBookButton" alignment="CENTER_RIGHT" minWidth="100.0" mnemonicParsing="false" onAction="#deleteBook" text="Удалить книгу" />
-                              <Button mnemonicParsing="false" text="Упорядочить по названию" />
-                              <Button mnemonicParsing="false" text="Упорядочить по автору" />
+                              <Button disable="true" mnemonicParsing="false" text="Упорядочить по названию" />
+                              <Button disable="true" mnemonicParsing="false" text="Упорядочить по автору" />
                            </children>
                         </HBox>
                      </children>
@@ -97,7 +97,7 @@
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button fx:id="addBookButton1" minWidth="100.0" mnemonicParsing="false" onAction="#addBook" text="Добавить Читателя" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Button fx:id="addReaderButton" disable="true" minWidth="100.0" mnemonicParsing="false" onAction="#addReader" text="Добавить Читателя" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="314.0" />
@@ -116,17 +116,17 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="idBook1" minWidth="22.0" prefWidth="22.0" text="№" />
-                                    <TableColumn fx:id="id1" minWidth="20.0" prefWidth="20.0" text="Фамилия" />
-                                    <TableColumn fx:id="author1" minWidth="66.0" prefWidth="68.0" text="Имя" />
-                                    <TableColumn fx:id="title1" minWidth="63.0" prefWidth="87.0" text="Отчество" />
-                                    <TableColumn fx:id="genre1" minWidth="39.0" prefWidth="143.0" text="Возраст" />
-                                    <TableColumn fx:id="age1" minWidth="28.0" prefWidth="128.0" text="Список книг" />
+                                    <TableColumn fx:id="idReader" minWidth="22.0" prefWidth="22.0" text="№" />
+                                    <TableColumn fx:id="fname" minWidth="20.0" prefWidth="20.0" text="Фамилия" />
+                                    <TableColumn fx:id="lname" minWidth="66.0" prefWidth="68.0" text="Имя" />
+                                    <TableColumn fx:id="oname" minWidth="63.0" prefWidth="87.0" text="Отчество" />
+                                    <TableColumn fx:id="ageR" minWidth="39.0" prefWidth="143.0" text="Возраст" />
+                                    <TableColumn fx:id="list" minWidth="28.0" prefWidth="128.0" text="Список книг" />
                                  </columns>
                               </TableView>
                               <HBox>
                                  <children>
-                                    <Button fx:id="deleteBookButton1" alignment="CENTER_RIGHT" minWidth="100.0" mnemonicParsing="false" onAction="#deleteBook" text="Удалить читателя" />
+                                    <Button fx:id="deleteBookButton1" alignment="CENTER_RIGHT" disable="true" minWidth="100.0" mnemonicParsing="false" onAction="#deleteReader" text="Удалить читателя" />
                                  </children>
                               </HBox>
                            </children>

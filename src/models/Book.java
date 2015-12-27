@@ -77,4 +77,20 @@ public class Book {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+    
+    /**
+     * Проверка модели
+     * @return true, если модель прошла проверку и false в противном случае
+     */
+    public Boolean validate() {
+        boolean valid = true;
+        
+        valid &= author != null && author.length() <= 255;
+        valid &= title != null && title.length() <= 255;
+        valid &= genre != null && genre.length() <= 255;
+        valid &= age != null && age >= 3 && age <= 150;
+        valid &= quantity != null && quantity >= 0 && quantity <= 10000;
+        
+        return valid;
+    }
 }

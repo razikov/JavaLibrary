@@ -6,20 +6,25 @@
 package controllers;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.application.Platform;
+import javafx.beans.binding.ListBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -43,10 +48,14 @@ public class ViewsController implements Initializable {
     
     private ObservableList<Book> bookData = FXCollections.observableArrayList(this.getBooksList());
     private ObservableList<Reader> readerData = FXCollections.observableArrayList(this.getReadersList());
+    private HashMap<String, Reader> mapReaderCB = new HashMap<String, Reader>();
     
     @FXML
     private TextField authorTextField, titleTextField, genreTextField, ageTextField, QuantityTextField, 
             nameTextField, familyNameTextField, fatherNameTextField, ageTextField2;
+    @FXML
+    private ComboBox<String> cbReaders, cbReaders2;
+    
     @FXML
     private Button addBookButton, deleteBookButton;
     //Таблица книг
@@ -247,7 +256,33 @@ public class ViewsController implements Initializable {
             return true;
         return false;
     }
-    
+    /*
+    private void initFindAction() {
+        ObservableList<String> actionsList = FXCollections.observableArrayList(
+                "Пополнить счет",
+                "Снятие процентов",
+                "Закрытие счета"
+        );
+        chooseActionMainPage.setItems(actionsList.sorted());
+    }
+    */
+    private void initReaderComboBox() {
+        
+        if (readerData == null)
+            return;
+        Iterator iterator = readerData.iterator();
+        ObservableList<String> readerList = FXCollections.observableArrayList();
+        while (iterator.hasNext()) {
+            Reader r = (Reader) iterator.next();
+            String s = r.getFamilyName() + " " + r.getName()+" "+r.getFatherName();
+            readerList.add(s);
+            mapReaderCB.put(s, r);
+        }
+        
+        cbReaders2.setItems(readerList);
+        cbReaders.setItems(readerList);
+    }
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //Book
@@ -284,5 +319,8 @@ public class ViewsController implements Initializable {
         });
         // заполняем таблицу данными
         tableReaders.setItems(readerData);
+        
+        //init combobox
+        initReaderComboBox();
     }
 }

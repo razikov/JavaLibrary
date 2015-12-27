@@ -145,24 +145,25 @@
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox layoutX="179.0" layoutY="52.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label layoutX="50.0" layoutY="15.0" text="Выберите читателя" />
-                              <Label layoutX="50.0" layoutY="56.0" text="Выберите жанр" GridPane.rowIndex="1" />
-                              <ChoiceBox layoutX="179.0" layoutY="11.0" GridPane.columnIndex="1" />
+                              <Label layoutX="50.0" layoutY="56.0" text="Укажите жанр" GridPane.rowIndex="1" />
                               <Label text="Укажите автора" GridPane.rowIndex="2" />
                               <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Искать по:" GridPane.rowIndex="3" />
                               <ChoiceBox GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField layoutX="301.0" layoutY="52.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <HBox GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Найти" />
+                                    <Button mnemonicParsing="false" text="Сбросить" />
+                                 </children>
+                              </HBox>
+                              <ComboBox fx:id="cbReaders" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
-                        <HBox>
-                           <children>
-                              <Button mnemonicParsing="false" text="Найти" />
-                              <Button mnemonicParsing="false" text="Сбросить" />
-                           </children>
-                        </HBox>
                         <TableView fx:id="tableBooks1">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -195,16 +196,11 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ChoiceBox GridPane.columnIndex="1" />
                               <Label text="Выберите читателя" />
+                              <ComboBox fx:id="cbReaders2" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
-                        <HBox prefHeight="32.0" prefWidth="625.0">
-                           <children>
-                              <Label text="Список книг &lt;Читатель&gt;. Сегодня &lt;Дата&gt;" />
-                           </children>
-                        </HBox>
-                        <TableView fx:id="tableBooks2" minWidth="546.0" prefHeight="391.0" prefWidth="625.0">
+                        <TableView fx:id="tableBooksReader" minWidth="546.0" prefHeight="429.0" prefWidth="625.0">
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>

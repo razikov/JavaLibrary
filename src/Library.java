@@ -20,17 +20,19 @@ e) возврат книги, за не вовремя сданную книгу
 f) вывод списка книг, упорядоченного по фамилии автора;
 g) вывод списка книг, упорядоченного по названию.
 */
-package library;
+
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import org.hibernate.Session;
 
 import models.Using;
@@ -46,10 +48,8 @@ public class Library extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("views/Book.fxml"));
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
         stage.show();
     }
@@ -58,6 +58,8 @@ public class Library extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        /*
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         //
@@ -103,7 +105,8 @@ public class Library extends Application {
         
         session.getTransaction().commit();
         session.close();
-        
-        //launch(args);
+        */
+        //List<models.Book> book = controllers.Book.getBooksList();
+        launch(args);
     }
 }

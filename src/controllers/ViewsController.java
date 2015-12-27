@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,9 +32,7 @@ import util.HibernateUtil;
  *
  * @author razikov
  */
-public class Controllers implements Initializable {
-    private String BOOK_WINDOW_TITLE = "Книги";
-    private String READER_WINDOW_TITLE = "Читатели";
+public class ViewsController implements Initializable {
     
     private ObservableList<Book> bookData = FXCollections.observableArrayList(this.getBooksList());
     
@@ -78,41 +76,6 @@ public class Controllers implements Initializable {
     @FXML
     private void deleteReader(ActionEvent event) {
         System.out.println("deleteR");
-    }
-    
-    @FXML
-    private void renderBook(ActionEvent event) {
-        System.out.println("renderB");
-        Stage stage = new Stage();
-        stage.setTitle(BOOK_WINDOW_TITLE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Book.fxml"));
-        try {
-            Parent root = loader.load();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex){
-            //Окно ошибки
-        }
-    }
-    
-    @FXML
-    private void renderReader(ActionEvent event) {
-        System.out.println("renderR");
-        Stage stage = new Stage();
-        stage.setTitle(READER_WINDOW_TITLE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Reader.fxml"));
-        //Закрыть старое окно, 
-        //сменить радиокнопку
-        try {
-            Parent root = loader.load();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex){
-            //Окно ошибки
-        }
-    }
-    
-    public void renderScene() {
     }
     
     /**

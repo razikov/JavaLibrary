@@ -6,6 +6,8 @@
 package controllers;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -33,6 +36,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import models.Book;
 import models.Reader;
 import models.Using;
+import models.UsingTable;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import util.HibernateUtil;
 
@@ -48,13 +53,17 @@ public class ViewsController implements Initializable {
     
     private ObservableList<Book> bookData = FXCollections.observableArrayList(this.getBooksList());
     private ObservableList<Reader> readerData = FXCollections.observableArrayList(this.getReadersList());
+    private ObservableList<UsingTable> usingData = FXCollections.observableArrayList();
     private HashMap<String, Reader> mapReaderCB = new HashMap<String, Reader>();
     
     @FXML
     private TextField authorTextField, titleTextField, genreTextField, ageTextField, QuantityTextField, 
-            nameTextField, familyNameTextField, fatherNameTextField, ageTextField2;
+            nameTextField, familyNameTextField, fatherNameTextField, ageTextField2,
+            findGenreTextField, findAuthorTextField;
     @FXML
     private ComboBox<String> cbReaders, cbReaders2;
+    @FXML
+    private DatePicker datePicker;
     
     @FXML
     private Button addBookButton, deleteBookButton;
@@ -89,6 +98,22 @@ public class ViewsController implements Initializable {
     private TableColumn<Reader, Integer> ageRCol;
     @FXML
     private TableColumn<Reader, Set<Using>> listCol;
+    
+    //Таблица возврата
+    @FXML
+    private TableView<UsingTable> tableBooksReader;
+    @FXML
+    private TableColumn<UsingTable, Integer> idUsingCol;
+    @FXML
+    private TableColumn<UsingTable, String> authorUsingCol;
+    @FXML
+    private TableColumn<UsingTable, String> titleUsingCol;
+    @FXML
+    private TableColumn<UsingTable, String> genreUsingCol;
+    @FXML
+    private TableColumn<UsingTable, Integer> ageUsingCol;
+    @FXML
+    private TableColumn<UsingTable, Date> dateUsingCol;
     
     /**
      * Обработчик события сохранения новой книги,
@@ -127,6 +152,7 @@ public class ViewsController implements Initializable {
             //Получает выделенную книгу
             Book b = bookData.get(selectedIndex);
             //Удаляет книгу из БД
+            //TODO: Проверка наличия книг на руках
             deleteObjectFromDB(b);
             //Удаляет книгу из таблицы
             bookData.remove(b);
@@ -164,7 +190,7 @@ public class ViewsController implements Initializable {
             //Получает 
             Reader r = readerData.get(selectedIndex);
             //Удаляет книгу из БД
-            //!!esli net knig na rukah
+            //TODO: Проверка наличия книг на руках
             deleteObjectFromDB(r);
             //Удаляет книгу из таблицы
             readerData.remove(r);
@@ -173,17 +199,183 @@ public class ViewsController implements Initializable {
         }
     }
     
+    @FXML
+    private void addUsing() {
+        System.out.println("addUsing");
+        String s = cbReaders.getValue();
+        if (s != null) {
+            int selectedIndex = tableBooks.getSelectionModel().getSelectedIndex();
+            if (selectedIndex >= 0) {
+                LocalDate ld = datePicker.getValue();
+                if (ld != null) {
+                    Date d = new Date(ld.toEpochDay()*86400000);
+                    Book b = bookData.get(selectedIndex);
+                    Reader r = mapReaderCB.get(s);
+                    Using using = new Using(b, r, d);
+                    //TODO: Проверка наличия книг на руках
+                    saveObjectToDB(using);
+                    //refresh
+                    readerData.remove(r);
+                    Set<Using> list = r.getList();
+                    list.add(using);
+                    //r.setList(list);
+                    readerData.add(r);
+                } else {
+                    showError("Выберите дату");
+                }
+            } else {
+                showError("Выберите книгу");
+            }
+        } else {
+            showError("Выберите читателя");
+        }
+    }
+    
+    @FXML
+    private void deleteUsing() {
+        System.out.println("deleteUsing");
+        String s = cbReaders2.getValue();
+        if (s != null) {
+            int selectedIndex = tableBooksReader.getSelectionModel().getSelectedIndex();
+            if (selectedIndex >= 0) {
+                using b = usingData.get(selectedIndex);
+                Reader r = mapReaderCB.get(s);
+                //TODO: Проверка наличия книг на руках
+                deleteObjectToDB(using);
+                //refresh
+                readerData.remove(r);
+                Set<Using> list = r.getList();
+                list.add(using);
+                //r.setList(list);
+                readerData.add(r);
+            } else {
+                showError("Выберите книгу");
+            }
+        } else {
+            showError("Выберите читателя");
+        }
+    }
+            
+    @FXML
+    private void selectReader2(ActionEvent event) {
+        System.out.println("selectReader2");
+        String s = cbReaders2.getValue();
+        getUsingList(mapReaderCB.get(s));
+    }
+    
+    @FXML
+    private void selectReader(ActionEvent event) {
+    }
+    
+    @FXML
+    private void findAll(ActionEvent event) {
+        bookData = FXCollections.observableArrayList(this.getBooksList());
+        tableBooks.setItems(bookData);
+    }
+    
+    @FXML
+    private void findByAuthor(ActionEvent event) {
+        String author = findAuthorTextField.getText();
+        String s = cbReaders.getValue();
+        if (s != null) {
+            Integer age = mapReaderCB.get(s).getAge();
+            bookData = FXCollections.observableArrayList(this.getBookListByAuthor(age, author));
+            tableBooks.setItems(bookData);
+        } else {
+            showError("Выберите читателя");
+        }
+    }
+    
+    @FXML
+    private void findByGenre(ActionEvent event) {
+        String genre = findGenreTextField.getText();
+        String s = cbReaders.getValue();
+        if (s != null) {
+            Integer age = mapReaderCB.get(s).getAge();
+            bookData = FXCollections.observableArrayList(this.getBookListByGenre(age, genre));
+            tableBooks.setItems(bookData);
+        } else {
+            showError("Выберите читателя");
+        }
+
+    }
+    /**
+     * Получает список книг читателя
+     * @return список книг
+     */
+    private void getUsingList(Reader reader) {
+        Set<Using> m = reader.getList();
+        usingData = FXCollections.observableArrayList();
+        if (m != null) {
+            for (Using u : m) {
+                UsingTable utable = new UsingTable();
+                utable.setId(u.getId());
+                Book b = u.getIdBook();
+                utable.setAuthor(b.getAuthor());
+                utable.setTitle(b.getTitle());
+                utable.setGenre(b.getGenre());
+                utable.setAge(b.getAge());
+                utable.setDateReturn(u.getDateReturn());
+                usingData.add(utable);
+            }
+            tableBooksReader.setItems(usingData);
+        }
+    }
+    /**
+     * заполняет таблицу возврата
+     * @return список книг
+     */
+    private void initReturnUsingTable() {
+        idUsingCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        authorUsingCol.setCellValueFactory(new PropertyValueFactory<>("author"));
+        titleUsingCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        genreUsingCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        ageUsingCol.setCellValueFactory(new PropertyValueFactory<>("age"));
+        dateUsingCol.setCellValueFactory(new PropertyValueFactory<>("dateReturn"));
+        // заполняем таблицу данными
+        tableBooksReader.setItems(usingData);
+    }
     /**
      * Получает список книг из базы данных
      * @return список книг
      */
-    private List<models.Book> getBooksList(){
+    private List<Book> getBooksList(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<models.Book> booksDB = session.createCriteria(models.Book.class).list();
+        List<Book> books = session.createCriteria(Book.class).list();
         session.getTransaction().commit();
         session.close();
-        return booksDB;
+        return books;
+    }
+    /**
+     * Получает список книг из базы данных
+     * @return список книг
+     */
+    public List<Book> getBookListByAuthor(Integer age, String author) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Book book where :age = book.age and :author like book.author")
+            .setInteger("age", age)
+            .setString("author", author);
+        List<Book> books = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return books;
+    }
+    /**
+     * Получает список книг из базы данных
+     * @return список книг
+     */
+    public List<Book> getBookListByGenre(Integer age, String genre) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Book book where :age = book.age and :genrе like book.genre")
+            .setInteger("age", age)
+            .setString("genrе", genre);
+        List<Book> books = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return books;
     }
     
     /**
@@ -193,10 +385,10 @@ public class ViewsController implements Initializable {
     private List<models.Reader> getReadersList(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<models.Reader> readersDB = session.createCriteria(models.Reader.class).list();
+        List<models.Reader> readers = session.createCriteria(models.Reader.class).list();
         session.getTransaction().commit();
         session.close();
-        return readersDB;
+        return readers;
     }
 
     /**
@@ -256,16 +448,7 @@ public class ViewsController implements Initializable {
             return true;
         return false;
     }
-    /*
-    private void initFindAction() {
-        ObservableList<String> actionsList = FXCollections.observableArrayList(
-                "Пополнить счет",
-                "Снятие процентов",
-                "Закрытие счета"
-        );
-        chooseActionMainPage.setItems(actionsList.sorted());
-    }
-    */
+    
     private void initReaderComboBox() {
         
         if (readerData == null)
@@ -278,23 +461,10 @@ public class ViewsController implements Initializable {
             readerList.add(s);
             mapReaderCB.put(s, r);
         }
-        
         cbReaders2.setItems(readerList);
         cbReaders.setItems(readerList);
     }
-        
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        //Book
-        idBook.setCellValueFactory(new PropertyValueFactory<>("id"));
-        author.setCellValueFactory(new PropertyValueFactory<>("author"));
-        title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        age.setCellValueFactory(new PropertyValueFactory<>("age"));
-        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        // заполняем таблицу данными
-        tableBooks.setItems(bookData);
-        
+    private void initReaderData() {
         //Reader
         idReaderCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -319,8 +489,28 @@ public class ViewsController implements Initializable {
         });
         // заполняем таблицу данными
         tableReaders.setItems(readerData);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //Book
+        idBook.setCellValueFactory(new PropertyValueFactory<>("id"));
+        author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        genre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        age.setCellValueFactory(new PropertyValueFactory<>("age"));
+        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        // заполняем таблицу данными
+        tableBooks.setItems(bookData);
         
+        initReaderData();
+        //Using
+        initReturnUsingTable();
         //init combobox
-        initReaderComboBox();
+        initReaderComboBox();        
+    }
+    
+    @FXML
+    private void updateReaderTab() {
+        initReaderData();
     }
 }

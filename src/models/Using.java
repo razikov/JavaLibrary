@@ -20,10 +20,10 @@ public class Using {
     public Using() {
     }
     
-    public Using(Book idBook, Reader idReader, Date ms) {
+    public Using(Book idBook, Reader idReader, Date date) {
         this.idBook = idBook;
         this.idReader = idReader;
-        this.dateReturn = ms;
+        this.dateReturn = date;
     }
     
     public Integer getId() {

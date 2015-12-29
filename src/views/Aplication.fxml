@@ -117,7 +117,7 @@
                   </VBox>
                </content>
           </Tab>
-          <Tab fx:id="tabReader" onSelectionChanged="#updateReaderTab" text="Читатели">
+          <Tab text="Читатели">
                <content>
                   <VBox prefHeight="498.0" prefWidth="625.0">
                      <children>

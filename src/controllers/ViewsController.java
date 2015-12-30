@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -258,28 +259,20 @@ public class ViewsController implements Initializable {
             int selectedIndex = tableBooksReader.getSelectionModel().getSelectedIndex();
             if (selectedIndex >= 0) {
                 Using using = usingData.get(selectedIndex);
-                //TODO: Проверка наличия книг на руках
                 deleteObjectFromDB(using);
                 //refresh
+                usingData.remove(using);
+                tableBooksReader.refresh();
                 //readerData.remove(r);
-                Set<Using> list = r.getList();
-                for (Using i : list) {
-                    if (Objects.equals(i.getId(), using.getId())) {
-                        list.remove(i);
-                    }
-                }
+                Set<Using> list = new HashSet<Using>(getUsingListByReader(r));
                 r.setList(list);
                 //readerData.add(r);
                 tableReaders.refresh();
-                
-                usingData.remove(using);
-                tableBooksReader.refresh();
                 
                 Calendar Current_Calendar = Calendar.getInstance();
                 java.util.Date Current_Date = Current_Calendar.getTime();
                 Date now = new Date(Current_Date.getTime());
                 Long delta = now.getTime() - using.getDateReturn().getTime();
-                System.out.println(delta);
                 if (delta > 0) {
                     showError("Вы опаздали, ваш штраф: " + delta/86400000 + " руб.");
                 }

@@ -9,7 +9,7 @@
     <property column="lName" name="familyName"/>
     <property column="sName" name="fatherName"/>
     <property column="age" name="age"/>
-    <set inverse="false" lazy="false" name="list" table="using">
+    <set inverse="false" cascade="delete" lazy="false" name="list" table="using">
       <key column="idReader">
         </key>
       <one-to-many class="models.Using"/>
